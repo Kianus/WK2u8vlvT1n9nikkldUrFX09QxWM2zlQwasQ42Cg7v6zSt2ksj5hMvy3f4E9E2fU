@@ -34,7 +34,7 @@ bot.on("ready", async () => {
 
     console.log(`${bot.user.username} is online!`);
 
-    bot.user.setActivity("Counter-Strike: Global Offensive", { type: "PLAYING" })
+    bot.user.setActivity("A lot of games!", { type: "3" })
 
 
 
