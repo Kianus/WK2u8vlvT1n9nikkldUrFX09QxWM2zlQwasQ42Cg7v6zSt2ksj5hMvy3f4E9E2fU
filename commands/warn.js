@@ -41,6 +41,7 @@ module.exports.run = async (bot, message, arguments) => {
     fs.writeFile("./warning.json", JSON.stringify(warns), (err) => {
         if (err) console.log(err)
 
+
     });
 
     var warnEmbed = new discord.RichEmbed()
@@ -51,7 +52,7 @@ module.exports.run = async (bot, message, arguments) => {
         .addField("Warned by:", message.author)
         .addField("Reason: ", reason)
 
-    var warnChannel = message.guild.channels.find(`name`, `adminlogs`);
+    var warnChannel = message.guild.channels.find(`name`, `botlogs`);
     if (!warnChannel) {
         message.channel.send("Cant find the adminlogs channel!");
         return;

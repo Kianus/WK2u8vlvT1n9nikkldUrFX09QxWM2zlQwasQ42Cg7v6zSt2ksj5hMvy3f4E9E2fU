@@ -1,8 +1,6 @@
 const discord = require("discord.js");
-const botConfig = require("./botconfig.json")
-
+const botConfig = require("./botConfig.json")
 const fs = require("fs");
-
 const bot = new discord.Client();
 bot.commands = new discord.Collection();
 
@@ -46,10 +44,14 @@ bot.on("ready", async () => {
 
 
 bot.on("message", async message => {
+    const coins = JSON.parse(fs.readFileSync("./coins.JSON", "utf8"));
 
-    
+
+    if(message.author.bot) return
 
     if (message.channel.type == "dm") return message.channel.send("I can't reply to dm's!")
+
+
 
     
 
@@ -70,9 +72,21 @@ bot.on("message", async message => {
         message.channel.send("for " + ruser + " " + ruser + "  " + ruser + " " + ruser + "! Putted upper belt! Putted upper beld!")
         return;
     };
+    if (!coins[message.author.id]) coins[message.author.id] = {
+        coins: 0
+    };
+
+    coins[message.author.id].coins++;
+
+    fs.writeFile("./coins.json", JSON.stringify(coins), (err) => {
+        if (err) console.log(err)
+
+
+    });
 
 });
 
 
 
-bot.login(process.env.TOKENKEY);
+//bot.login(process.env.TOKENKEY);
+bot.login(process.env.token);

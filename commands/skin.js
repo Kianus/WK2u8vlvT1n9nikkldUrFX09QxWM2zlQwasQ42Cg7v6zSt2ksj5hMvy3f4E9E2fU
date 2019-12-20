@@ -4,10 +4,6 @@ let snekfetch = require("snekfetch")
 module.exports.run = async (bot, message, arguments) => {
     if (message.author.bot) return;
 
-
-
-
-
     var weapon = arguments[0]
     var skin = arguments[1]
     var durability = arguments[2]

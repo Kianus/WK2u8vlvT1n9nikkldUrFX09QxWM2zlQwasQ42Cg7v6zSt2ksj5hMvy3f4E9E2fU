@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, arguments) => {
         return;
     };
 
-    var banChannel = message.guild.channels.find(`name`, `adminlogs`);
+    var banChannel = message.guild.channels.find(`name`, `botlogs`);
 
     var BanEmbed = new discord.RichEmbed()
         .setDescription(user + "Has been banned")
