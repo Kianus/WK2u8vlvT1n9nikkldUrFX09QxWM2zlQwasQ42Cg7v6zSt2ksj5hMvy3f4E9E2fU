@@ -3,18 +3,10 @@ const discord = require("discord.js");
 module.exports.run = async (bot, message, arguments) => {
     if (message.author.bot) return;
 
-    var CSGO = "631206449963466804";
-    var Rocket = "652236244205699073";
-    var Riot = "652236311905959937";
-    var Mine = "652236348631285771";
-    var Super = "652236439328915539";
+    var Owner = "521276954981302291";
 
 message.guild.members.forEach( (member) => {
-        if(!member.roles.has(CSGO)) {
-            if(!member.roles.has(Rocket)) {
-                if(!member.roles.has(Riot)) {
-                    if(!member.roles.has(Mine)) {
-                        if(!member.roles.has(Super)) {
+        if(!member.roles.has(Owner)) {
                             var message = new discord.RichEmbed()
                             .setTitle("WARNING")
                             .setColor("#ff1100")
@@ -22,14 +14,10 @@ message.guild.members.forEach( (member) => {
                                 
                             member.send(message);
                         }
-                    }
-                }
-            }
-        }
     })
 
 };
 
 module.exports.help = {
-    name: "kickmsg"
+    name: "kickmsgcopy"
 };
