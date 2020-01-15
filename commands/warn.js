@@ -5,7 +5,7 @@ const mysql = require("mysql");
 module.exports.run = async (bot, message, arguments) => {
     if(message.author.bot) return;
 
-    if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("Sorry but you dont have permission to perform this command!");
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry but you dont have permission to perform this command!");
 
     var user = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
 
