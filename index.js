@@ -1,6 +1,8 @@
 const discord = require("discord.js");
 const botConfig = require("./botConfig.json")
 const fs = require("fs");
+const database = require("./database.json");
+const mysql = require("mysql");
 const bot = new discord.Client();
 bot.commands = new discord.Collection();
 
@@ -34,7 +36,7 @@ bot.on("ready", async () => {
 
     console.log(`${bot.user.username} is online!`);
 
-    bot.user.setActivity("A lot of games!", { type: "PLAYING" })
+    bot.user.setActivity("A lot of games to add!", { type: "WATCHING" })
 
 
 
@@ -44,7 +46,7 @@ bot.on("ready", async () => {
 
 
 bot.on("message", async message => {
-    const coins = JSON.parse(fs.readFileSync("./coins.JSON", "utf8"));
+    //const coins = JSON.parse(fs.readFileSync("./coins.JSON", "utf8"));
 
 
     if(message.author.bot) return
@@ -72,21 +74,35 @@ bot.on("message", async message => {
         message.channel.send("for " + ruser + " " + ruser + "  " + ruser + " " + ruser + "! Putted upper belt! Putted upper beld!")
         return;
     };
-    if (!coins[message.author.id]) coins[message.author.id] = {
-        coins: 0
-    };
-
-    coins[message.author.id].coins++;
-
-    fs.writeFile("./coins.json", JSON.stringify(coins), (err) => {
-        if (err) console.log(err)
-
-
+    var con = mysql.createConnection({
+        host: process.env.host,
+        user: process.env.user,
+        password: process.env.password,
+        database: process.env.database
     });
+    con.connect(err => {
+        if(err){
+            console.log(err);
+        }
+    });
+
+    var hetid = message.author.id
+
+    con.query(`SELECT * FROM data WHERE idUser = '${hetid}'`, (err, rows, fields) =>{
+        if(err){
+            console.log(err);
+        }
+        if(rows < 1){
+            con.query(`INSERT INTO data (idUser, coins) VALUES ("${hetid}", "1")`)
+        }else{
+                var aantal = rows[0].coins
+            con.query(`UPDATE data SET coins = ${aantal + 1} WHERE idUser = '${hetid}'`)
+
+        }
+    })
 
 });
 
 
 
-//bot.login(process.env.TOKENKEY);
 bot.login(process.env.token);
