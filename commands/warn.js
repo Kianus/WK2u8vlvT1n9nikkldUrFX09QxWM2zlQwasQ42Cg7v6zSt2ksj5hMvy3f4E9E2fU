@@ -1,5 +1,4 @@
 const discord = require("discord.js");
-const database = require("../database.json");
 const mysql = require("mysql");
 
 
